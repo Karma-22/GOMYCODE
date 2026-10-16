@@ -30,9 +30,9 @@ describe('Deployment Checkpoint Validation Suite', () => {
   });
 
   // Test 3: CI/CD Workflow file
-  test('3. GitHub Actions deploy.yml workflow should be configured', () => {
-    const workflowPath = path.join(__dirname, '..', '.github', 'workflows', 'deploy.yml');
-    assert.ok(fs.existsSync(workflowPath), '.github/workflows/deploy.yml must exist');
+  test('3. CI/CD deploy.yml workflow should be configured', () => {
+    const workflowPath = path.join(__dirname, '..', 'ci-cd', 'deploy.yml');
+    assert.ok(fs.existsSync(workflowPath), 'ci-cd/deploy.yml must exist');
     const content = fs.readFileSync(workflowPath, 'utf-8');
     assert.match(content, /runs-on: ubuntu-latest/);
     assert.match(content, /npm test/);
