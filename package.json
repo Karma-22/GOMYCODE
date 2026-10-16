@@ -1,0 +1,17 @@
+{
+  "name": "gomycode-mongoose-checkpoint",
+  "version": "1.0.0",
+  "description": "GoMyCode Mongoose & NodeJS VS MongoDB Checkpoint - Schemas, CRUD, Query Helpers & Chaining",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node --test tests/mongoose.test.js"
+  },
+  "keywords": ["gomycode", "mongodb", "mongoose", "crud", "query-helpers"],
+  "author": "Darius Ange (Karma-22)",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "mongoose": "^8.8.4"
+  }
+}
