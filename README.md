@@ -26,9 +26,13 @@
 | 14 | **MongoDB Checkpoint** | MongoDB Native, BSON, Queries | [gomycode-mongodb-checkpoint](https://github.com/Karma-22/gomycode-mongodb-checkpoint) | ✅ 6/6 Requêtes & CRUD validés |
 | 15 | **Node.js Checkpoint** | Node.js, FileSystem, HTTP, Nodemailer | [gomycode-nodejs-checkpoint](https://github.com/Karma-22/gomycode-nodejs-checkpoint) | ✅ 5/5 Tests HTTP/FS passés |
 | 16 | **Express (Routing) Checkpoint**| Express, Working Hours Middleware | [gomycode-express-routing-checkpoint](https://github.com/Karma-22/gomycode-express-routing-checkpoint) | ✅ 6/6 Tests supertest passés |
-| 17 | **Mongoose & NodeJS VS MongoDB**| Mongoose ODM, Schemas, Chaining | [Branche checkpoint-17-mongoose](https://github.com/Karma-22/GOMYCODE/tree/checkpoint-17-mongoose) | ✅ 11/11 Tests Mongoose passés |
-| 18 | **REST API Checkpoint** | Express, Mongoose, REST CRUD | [Branche checkpoint-18-rest-api](https://github.com/Karma-22/GOMYCODE/tree/checkpoint-18-rest-api) | ✅ 7/7 Tests API supertest passés |
-| 19 | **Deployment Checkpoint** | Docker, Compose, Multi-Cloud CI/CD | [Branche checkpoint-19-deployment](https://github.com/Karma-22/GOMYCODE/tree/checkpoint-19-deployment) | ✅ 7/7 Tests de déploiement passés |
+| 17 | **Mongoose & NodeJS VS MongoDB**| Mongoose ODM, Schemas, Chaining | [gomycode-mongoose-checkpoint](https://github.com/Karma-22/gomycode-mongoose-checkpoint) | ✅ 11/11 Tests Mongoose passés |
+| 18 | **REST API Checkpoint** | Express, Mongoose, REST CRUD | [gomycode-rest-api-checkpoint](https://github.com/Karma-22/gomycode-rest-api-checkpoint) | ✅ 7/7 Tests API supertest passés |
+| 19 | **Deployment Checkpoint** | Docker, Compose, Multi-Cloud CI/CD | [gomycode-deployment-checkpoint](https://github.com/Karma-22/gomycode-deployment-checkpoint) | ✅ 7/7 Tests de déploiement passés |
+| 20 | **Fondations du codage Vibe** | IA / Vibe Coding / Landing Page | [gomycode-ai-vibe-foundations](https://github.com/Karma-22/gomycode-ai-vibe-foundations) | ✅ Hero Page + Prompts + Captures |
+| 21 | **Codez le Vibe – Galerie Produit**| IA / CSS 3D Tilt / Dark Mode | [gomycode-ai-vibe-gallery](https://github.com/Karma-22/gomycode-ai-vibe-gallery) | ✅ Galerie Tech + Panier + Thème |
+| 22 | **Bonnes pratiques & Optimisation**| IA / Refactoring / Modulaire | [gomycode-ai-best-practices](https://github.com/Karma-22/gomycode-ai-best-practices) | ✅ PricingCard Component + Audit |
+| 23 | **Studio de projet final IA** | IA / Media Streaming App | [gomycode-ai-final-studio](https://github.com/Karma-22/gomycode-ai-final-studio) | ✅ CinéVibe Studio + YouTube Embed |
 
 ---
 
