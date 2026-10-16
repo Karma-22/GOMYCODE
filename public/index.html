@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UserPulse REST API Explorer | GoMyCode Checkpoint</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(17, 24, 39, 0.8);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent: #3b82f6;
+      --accent-cyan: #06b6d4;
+      --accent-green: #10b981;
+      --accent-red: #ef4444;
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      background-image: radial-gradient(circle at top right, rgba(59, 130, 246, 0.12), transparent 40%),
+                        radial-gradient(circle at bottom left, rgba(6, 182, 212, 0.1), transparent 40%);
+    }
+    .container { max-width: 1100px; margin: 0 auto; }
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.35rem 0.85rem;
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--accent-cyan);
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      margin-bottom: 0.75rem;
+    }
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff, var(--accent-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+    p.lead { color: var(--text-muted); font-size: 1.05rem; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 2rem;
+    }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      backdrop-filter: blur(12px);
+    }
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #fff;
+    }
+    .form-group { margin-bottom: 1rem; }
+    label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.35rem; }
+    input, select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: rgba(10, 14, 23, 0.7);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.95rem;
+      outline: none;
+    }
+    input:focus, select:focus {
+      border-color: var(--accent-cyan);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      font-weight: 600;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: opacity 0.2s;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-cyan));
+      color: #fff;
+      width: 100%;
+    }
+    .btn:hover { opacity: 0.9; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    th, td {
+      padding: 0.85rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--card-border);
+      font-size: 0.9rem;
+    }
+    th {
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    tr:hover { background: rgba(255, 255, 255, 0.02); }
+    .role-badge {
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .role-admin { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .role-user { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+    .btn-action {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      padding: 0.3rem 0.5rem;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .btn-del { color: var(--accent-red); }
+    .btn-del:hover { background: rgba(239, 68, 68, 0.15); }
+    .btn-edit { color: var(--accent-cyan); }
+    .btn-edit:hover { background: rgba(6, 182, 212, 0.15); }
+    .empty-state {
+      text-align: center;
+      padding: 2.5rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge"><i class="fa-solid fa-code-branch"></i> Checkpoint REST API</div>
+      <h1>UserPulse API Explorer</h1>
+      <p class="lead">Plateforme de test interactive pour les routes Express & Mongoose CRUD</p>
+    </header>
+
+    <div class="grid">
+      <!-- Create / Edit Form -->
+      <div class="card">
+        <h2 class="card-title" id="formTitle"><i class="fa-solid fa-user-plus"></i> Nouvel Utilisateur</h2>
+        <form id="userForm">
+          <input type="hidden" id="userId">
+          <div class="form-group">
+            <label for="name">Nom complet *</label>
+            <input type="text" id="name" placeholder="Ex: Jean Dupont" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Adresse email *</label>
+            <input type="email" id="email" placeholder="Ex: jean.dupont@gmail.com" required>
+          </div>
+          <div class="form-group">
+            <label for="age">Âge</label>
+            <input type="number" id="age" placeholder="Ex: 25" min="0" value="18">
+          </div>
+          <div class="form-group">
+            <label for="role">Rôle</label>
+            <select id="role">
+              <option value="user">User (Standard)</option>
+              <option value="admin">Admin (Administrateur)</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary" id="btnSubmit">
+            <i class="fa-solid fa-floppy-disk"></i> Enregistrer
+          </button>
+        </form>
+      </div>
+
+      <!-- Users Table -->
+      <div class="card">
+        <h2 class="card-title">
+          <i class="fa-solid fa-users"></i> Liste des Utilisateurs 
+          <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: normal;" id="userCount">(0)</span>
+        </h2>
+        <div style="overflow-x: auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Âge</th>
+                <th>Rôle</th>
+                <th style="text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="userTableBody">
+              <tr>
+                <td colspan="5" class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i> Chargement...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = '/api/users';
+
+    async function loadUsers() {
+      try {
+        const res = await fetch(API_URL);
+        const data = await res.json();
+        const tbody = document.getElementById('userTableBody');
+        const countSpan = document.getElementById('userCount');
+
+        if (!data.data || data.data.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5" class="empty-state">Aucun utilisateur enregistré pour le moment.</td></tr>';
+          countSpan.textContent = '(0)';
+          return;
+        }
+
+        countSpan.textContent = `(${data.data.length})`;
+        tbody.innerHTML = data.data.map(u => `
+          <tr>
+            <td style="font-weight: 600;">${u.name}</td>
+            <td style="color: var(--text-muted);">${u.email}</td>
+            <td>${u.age} ans</td>
+            <td>
+              <span class="role-badge ${u.role === 'admin' ? 'role-admin' : 'role-user'}">${u.role}</span>
+            </td>
+            <td style="text-align: right;">
+              <button class="btn-action btn-edit" onclick="editUser('${u._id}', '${u.name}', '${u.email}', ${u.age}, '${u.role}')" title="Modifier">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button class="btn-action btn-del" onclick="deleteUser('${u._id}')" title="Supprimer">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        console.error('Erreur de chargement:', err);
+      }
+    }
+
+    async function deleteUser(id) {
+      if (!confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) return;
+      try {
+        const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+          loadUsers();
+        }
+      } catch (err) {
+        alert('Erreur lors de la suppression');
+      }
+    }
+
+    function editUser(id, name, email, age, role) {
+      document.getElementById('userId').value = id;
+      document.getElementById('name').value = name;
+      document.getElementById('email').value = email;
+      document.getElementById('age').value = age;
+      document.getElementById('role').value = role;
+      document.getElementById('formTitle').innerHTML = '<i class="fa-solid fa-pen"></i> Modifier Utilisateur';
+      document.getElementById('btnSubmit').innerHTML = '<i class="fa-solid fa-check"></i> Mettre à jour';
+    }
+
+    document.getElementById('userForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('userId').value;
+      const payload = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        age: Number(document.getElementById('age').value),
+        role: document.getElementById('role').value
+      };
+
+      try {
+        let res;
+        if (id) {
+          res = await fetch(`${API_URL}/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+        } else {
+          res = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+        }
+
+        const data = await res.json();
+        if (res.ok) {
+          document.getElementById('userForm').reset();
+          document.getElementById('userId').value = '';
+          document.getElementById('formTitle').innerHTML = '<i class="fa-solid fa-user-plus"></i> Nouvel Utilisateur';
+          document.getElementById('btnSubmit').innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Enregistrer';
+          loadUsers();
+        } else {
+          alert('Erreur: ' + (data.message || 'Impossible d\'enregistrer'));
+        }
+      } catch (err) {
+        alert('Erreur de connexion avec le serveur');
+      }
+    });
+
+    loadUsers();
+  </script>
+</body>
+</html>
