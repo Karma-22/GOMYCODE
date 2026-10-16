@@ -1,0 +1,24 @@
+{
+  "name": "gomycode-deployment-checkpoint",
+  "version": "1.0.0",
+  "description": "GoMyCode Deployment Checkpoint - Multi-Cloud CI/CD, Containerized Production Architecture & Health Monitoring",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "test": "node --test tests/deployment.test.js",
+    "docker:build": "docker build -t gomycode-app:latest .",
+    "docker:up": "docker-compose up -d"
+  },
+  "keywords": ["gomycode", "deployment", "docker", "ci-cd", "cloud", "azure", "render", "production"],
+  "author": "Darius Ange (Karma-22)",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "supertest": "^7.0.0"
+  }
+}
